@@ -52,6 +52,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'littlelemon.urls'
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -76,8 +78,15 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'restaurant',#project name
+        'HOST':'localhost',#or '127.0.0.1'
+        'USER': 'admindjango',
+        'PASSWORD':'Employee@123!',
+        'PORT':'3306',
+        'OPTIONS': {
+            'read_default_file': '/path/to/my.cnf',
+        },
     }
 }
 
