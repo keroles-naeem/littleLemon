@@ -1,4 +1,4 @@
-# Coach
+# /////////////////////////////////This File for Showing some cases and learning not executed in the app /////////////////////////////
 # Certainly! Here’s how to handle token generation and validation using Django REST Framework's generic views.
 
 # 1. Install Required Packages
