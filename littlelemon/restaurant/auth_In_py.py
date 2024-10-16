@@ -235,3 +235,73 @@ urlpatterns = [
 # This example provides a high-level overview of how to implement user
 # authentication using Djoser in a Django application.
 # If you have any questions or need further details, feel free to ask!
+
+
+
+
+
+# Absolutely! Here’s a concise example demonstrating how to implement token authentication
+# in a Django REST Framework view, including how the client should send the token in the request headers.
+
+# Step 1: Set Up Token Authentication
+
+# Ensure you have the necessary setup in your settings.py:
+
+INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+# Step 2: Create a View
+
+# Here’s an example of a protected view that requires token authentication:
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+class ProtectedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        content = {'message': 'You have accessed a protected view!'}
+        return Response(content)
+# Step 3: Generate a Token
+
+# You can generate a token for a user in the Django shell:
+
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
+# Replace 'your_username' with the actual username
+user = User.objects.get(username='your_username')
+token, created = Token.objects.get_or_create(user=user)
+print(token.key)  # This is the token you will use in requests
+# Step 4: Make a Request with the Token
+
+# When making a request to the protected view, include the token in the headers.
+# Here’s how you can do it using curl or an API client like Postman or Insomnia.
+
+# Using curl:
+
+# curl -H "Authorization: Token your_token_here" http://localhost:8000/protected-view/
+# Using Postman or Insomnia:
+
+# Set the request type to GET.
+# Enter the URL: http://localhost:8000/protected-view/.
+# In the headers section, add:
+# Key: Authorization
+# Value: Token your_token_here
+# Summary
+
+# The client must send the token in the Authorization header to access the protected view.
+# The view will only respond if the token is valid and corresponds to an authenticated user.
+# If you have any more questions or need further assistance, feel free to ask! You're doing an amazing job!
